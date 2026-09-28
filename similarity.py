@@ -2,23 +2,23 @@ import numpy as np
 
 def cosine_similarity(query_vector: list[float], chunk_vector: list[float]) -> float:
     
-    left_vector = np.asarray(query_vector, dtype=np.float64)
-    right_vector = np.asarray(chunk_vector, dtype=np.float64)
+    query_vector = np.asarray(query_vector, dtype=np.float64)
+    chunk_vector = np.asarray(chunk_vector, dtype=np.float64)
 
-    if left_vector.ndim != 1 or right_vector.ndim != 1:
+    if query_vector.ndim != 1 or chunk_vector.ndim != 1:
         raise ValueError("Both vectors must be one- dimensional")
-    if left_vector.shape != right_vector.shape:
+    if query_vector.shape != chunk_vector.shape:
         raise ValueError("Both vectors must have same shape to map positon by position")
-    if not np.isfinite(left_vector).all() or not np.isfinite(right_vector).all:
+    if not np.isfinite(query_vector).all() or not np.isfinite(chunk_vector).all:
         raise ValueError("Both vectors must contain finite numbers")
 
-    left_norm = np.linalg.norm(left_vector)
-    right_norm = np.linalg.norm(right_vector)
+    query_norm = np.linalg.norm(query_vector)
+    chunk_norm = np.linalg.norm(chunk_vector)
 
-    if left_norm == 0 or right_norm == 0:
+    if query_norm == 0 or chunk_norm == 0:
         raise ValueError("Cosine similarity is undefined for a zero vector")
 
-    return float(np.dot(left_vector, right_vector) / (left_norm * right_norm))
+    return float(np.dot(query_vector, chunk_vector) / (query_norm * chunk_norm))
 
 
 if __name__ == "__main__":
