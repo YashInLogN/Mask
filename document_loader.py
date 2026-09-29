@@ -12,20 +12,20 @@ def load_text_document(path: str | Path) -> SourceDocument:
     file_path = Path(path)
 
     if not file_path.exists():
-        return FileNotFoundError("")
+        return FileNotFoundError(f"Document not found: {file_path}")
     if not file_path.is_file():
-        raise ValueError("") 
+        raise ValueError(f"Expected a file, got: {file_path}") 
     if file_path.suffix.lower() != ".txt":
-        return ValueError("")
+        return ValueError(f"Only .txt files are supported right now: {file_path}")
 
     try:
         text = file_path.read_text(encoding="utf-8")
     except UnicodeDecodeError as error:
-        raise UnicodeDecodeError("") from error
+        raise UnicodeDecodeError(f"Document is not valid UTF-8: {file_path}") from error
 
     text = text.strip()
     if not text:
-        raise ValueError("")
+        raise ValueError(f"Document is empty: {file_path}")
 
     return SourceDocument(
         source= file_path.as_posix(),
