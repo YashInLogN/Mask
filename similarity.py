@@ -1,9 +1,9 @@
 import numpy as np
 
-def cosine_similarity(query_vector: list[float], chunk_vector: list[float]) -> float:
+def cosine_similarity(query: list[float], chunk: list[float]) -> float:
     
-    query_vector = np.asarray(query_vector, dtype=np.float64)
-    chunk_vector = np.asarray(chunk_vector, dtype=np.float64)
+    query_vector = np.asarray(query, dtype=np.float64)
+    chunk_vector = np.asarray(chunk, dtype=np.float64)
 
     if query_vector.ndim != 1 or chunk_vector.ndim != 1:
         raise ValueError("Both vectors must be one- dimensional")
